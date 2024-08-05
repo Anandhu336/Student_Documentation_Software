@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[ ]:
+# In[1]:
 
 
 # Import necessary libraries
@@ -24,14 +24,18 @@ file_path = 'students_data.csv'
 # Load the CSV file named 'students_data.csv' into the 'data' variable
 data = load_csv_data(file_path)
 
+
 # Function to create a pie chart for the proportion of students based on their race
 def c1_students_proportion_by_race():
     # Initialize a default dictionary to count occurrences of each race
     race_counts = defaultdict(int)
-    # Iterate over each student record
-    for row in data:
-        # Increment the count for the student's race
-        race_counts[row['Race']] += 1
+    # Get the header row to determine the index of 'Race' column
+    header = data[0]
+    race_index = header.index('Race')
+    # Iterate over each student record, starting from the second row to skip the header
+    for row in data[1:]:
+        # Increment the count for the student's race using the index
+        race_counts[row[race_index]] += 1  
     # Extract race labels
     labels = list(race_counts.keys())
     
@@ -53,11 +57,14 @@ def c1_students_proportion_by_race():
 def c2_avg_writing_scores_by_race():
     # Initialize a default dictionary to store writing scores for each race
     race_scores = defaultdict(list)
-    # Iterate over each student record
-    for row in data:
-        
-        # Append the writing score to the appropriate race
-        race_scores[row['Race']].append(float(row['Writing_score']))
+    # Get the header row to determine column indices
+    header = data[0]
+    race_index = header.index('Race')
+    writing_index = header.index('Writing_score')
+    # Iterate over each student record, starting from the second row to skip the header
+    for row in data[1:]:
+        # Append the writing score to the appropriate race using the indices
+        race_scores[row[race_index]].append(float(row[writing_index]))
 
     # Calculate the average writing score for each race
     avg_writing_scores = {race: mean(scores) for race, scores in race_scores.items()}
@@ -78,41 +85,47 @@ def c2_avg_writing_scores_by_race():
 
 # Function to create a scatter plot to illustrate the relationship between reading and writing scores
 def c3_relationship_reading_writing_scores():
-    # # Extract reading and writing scores for all students
-    reading_scores = [float(row['Reading_score']) for row in data]
-    writing_scores = [float(row['Writing_score']) for row in data]
-    
-    # Set the size of the figure
-    plt.figure(figsize=(10, 6))
-    
-    # Create a scatter plot with reading scores on the x-axis and writing scores on the y-axis
-    plt.scatter(reading_scores, writing_scores, alpha=0.5)
+  reading_scores = [int(float(row[29])) for row in data[1:]]  
+  writing_scores = [int(float(row[30])) for row in data[1:]]
+
+  
+
+  # Set the size of the figure
+  plt.figure(figsize=(10, 6))
+  # Create a scatter plot with reading scores on the x-axis and writing scores on the y-axis
+  plt.scatter(reading_scores, writing_scores, alpha=0.5)
     
     # # Provide the title for the plot
-    plt.title('Relationship Between Reading and Writing Scores')
+  plt.title('Relationship Between Reading and Writing Scores')
     
     # Give the label for the x-axis
-    plt.xlabel('Reading Score')
+  plt.xlabel('Reading Score')
 
     # Give the label for the y-axis
-    plt.ylabel('Writing Score')
+  plt.ylabel('Writing Score')
 
     # Enable the grid for the plot
-    plt.grid(True)
+  plt.grid(True)
 
     # Display the scatter plot
-    plt.show()
+  plt.show()
+    
+    
+  
 
 # Function to create a Health visualisation to showcase information related to student performance
 def c4_Health_visualization():
 
      # Initialize a default dictionary to store math scores for each health status
     health_scores = defaultdict(list)
-
-    # Iterate over each student record
-    for row in data:
-        # Append the math score to the appropriate health status
-        health_scores[row['Health']].append(float(row['Math_score']))
+    # Get the header row to determine column indices
+    header = data[0]
+    health_index = header.index('Health')
+    math_index = header.index('Math_score')
+    # Iterate over each student record (starting from the second row to skip the header)
+    for row in data[1:]:
+        # Append the math score to the appropriate health status using the indices
+        health_scores[row[health_index]].append(float(row[math_index]))
 
     
     # Calculate the average math score for each health status
