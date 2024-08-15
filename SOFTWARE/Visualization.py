@@ -1,7 +1,10 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
+# In[ ]:
+
+
+from collections import defaultdict
 
 
 # For creating visualizations
@@ -14,7 +17,7 @@ from collections import defaultdict
 from statistics import mean
 
 # Function to create a pie chart for the proportion of students based on their race
-def c1_students_proportion_by_race(df_data):
+def students_proportion_by_race(df_data):
     # Count occurrences of each race
     race_counts = df_data['Race'].value_counts()
 
@@ -34,27 +37,28 @@ def c1_students_proportion_by_race(df_data):
     plt.show()
 
 # Function to create a bar chart to compare average writing scores among students in each race group
-def c2_avg_writing_scores_by_race(df_data):
-    # Calculate the average writing score for each race
-    avg_writing_scores = df_data.groupby('Race')['Writing_score'].mean()
+def avg_writing_scores_by_race(df_data):
+    race_scores = defaultdict(list)
+    for race, writing_score in zip(df_data['Race'], df_data['Writing_score']):
+        race = race.strip().lower()
+        writing_score = float(writing_score)
+        race_scores[race].append(writing_score)
     
-    # Set the size of the figure
+    # Calculating average writing score for each race
+    avg_scores = {race: sum(scores)/len(scores) for race, scores in race_scores.items()}
+    
+    # Plotting the data
     plt.figure(figsize=(10, 6))
-    # Create a bar chart with race labels and their corresponding average writing scores
-    plt.bar(avg_writing_scores.index, avg_writing_scores.values, color='skyblue')
-    # Provide the title of the chart
-    plt.title('Average Writing Scores by Race')
-    # Give the label for the x-axis
+    plt.bar(avg_scores.keys(), avg_scores.values(), color='skyblue')
     plt.xlabel('Race')
-    # Give the label for the y-axis
     plt.ylabel('Average Writing Score')
-    # Rotate the x-axis labels for better readability
+    plt.title('Average Writing Scores by Race')
     plt.xticks(rotation=45)
-    # Display the bar chart
     plt.show()
+   
 
 # Function to create a scatter plot to illustrate the relationship between reading and writing scores
-def c3_relationship_reading_writing_scores(df_data):
+def relationship_reading_writing_scores(df_data):
     # Extract reading and writing scores
     reading_scores = df_data['Reading_score']
     writing_scores = df_data['Writing_score']
@@ -79,25 +83,35 @@ def c3_relationship_reading_writing_scores(df_data):
     # Display the scatter plot
     plt.show()
 
-# Function to create a Health visualization to showcase information related to student performance
-def c4_Health_visualization(df_data):
+def Health_visualization(df_data):
     # Calculate the average math score for each health status
-    avg_math_scores_health = df_data.groupby('Health')['Math_score'].mean()
+    avg_math_scores_health = defaultdict(list)
     
-    # Set the size of the figure
+    # Iterate over the DataFrame rows
+    for health, math_score in zip(df_data['Health'], df_data['Math_score']):
+        health = health.strip().lower()  # Normalize health status string
+        math_score = float(math_score)   # Ensure the math score is a float
+        avg_math_scores_health[health].append(math_score)
+    
+    # Calculate the average scores
+    avg_scores = {health: sum(scores) / len(scores) for health, scores in avg_math_scores_health.items()}
+    
+    # Plotting
     plt.figure(figsize=(10, 6))
-    # Create a bar chart with health statuses and their corresponding average math scores
-    plt.bar(avg_math_scores_health.index, avg_math_scores_health.values, color='orange')
-    # Provide the title of the chart
-    plt.title('Average Math Scores by Health Status')
-    # Give the label for the x-axis
-    plt.xlabel('Health Status')
-    # Give the label for the y-axis
+    plt.bar(avg_scores.keys(), avg_scores.values(), color='red')
+    plt.xlabel('Health')
     plt.ylabel('Average Math Score')
-    # Set the rotation of the x-axis labels
-    plt.xticks(rotation=0)
-    # Show the plot
+    plt.title('Average Math Scores by Health')
+    plt.xticks(rotation=45)
     plt.show()
+
+
+
+
+
+    
+
+
 
 # Main function to display the visualization menu and operate user input
 def Visualization(df_data):
@@ -107,7 +121,7 @@ def Visualization(df_data):
         print("1. Proportion of students by race")
         print("2. Average writing scores by race")
         print("3. Relationship between reading and writing scores")
-        print("4. Custom visualization related to student performance")
+        print("4. Average Math scores by Health")
         print("5. Exit visualization menu")
         
         # Prompt the user to choose an option from the menu
@@ -115,13 +129,13 @@ def Visualization(df_data):
 
         # Operates the user's choice by calling the appropriate function
         if choice == '1':
-            c1_students_proportion_by_race(df_data)
+            students_proportion_by_race(df_data)
         elif choice == '2':
-            c2_avg_writing_scores_by_race(df_data)
+            avg_writing_scores_by_race(df_data)
         elif choice == '3':
-            c3_relationship_reading_writing_scores(df_data)
+            relationship_reading_writing_scores(df_data)
         elif choice == '4':
-            c4_Health_visualization(df_data)
+            Health_visualization(df_data)
         elif choice == '5':
             # Print a message indicating the program is exiting
             print("Exiting visualization menu...")
@@ -130,4 +144,8 @@ def Visualization(df_data):
         else:
             # Notify the user of an invalid choice
             print("Invalid choice. Please try again.")
+
+
+
+
 

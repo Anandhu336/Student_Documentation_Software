@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[ ]:
+# In[1]:
 
 
 # Define a function to prompt the user to change input or return to the main menu.
@@ -28,10 +28,10 @@ def change_or_main_menu():
   
 
 
-# In[ ]:
+# In[2]:
 
 
-def b2_avg_absences_by_parental_involvement(df_data):
+def avg_absences_by_parental_involvement(df_data):
     if df_data is None or df_data.empty:
         print("No data available for analysis.")
         return
@@ -57,7 +57,7 @@ def b2_avg_absences_by_parental_involvement(df_data):
             break
 
 
-def b3_avg_math_score_by_race_for_attendance_over_80(df_data):
+def avg_math_score_by_race_for_attendance_over_80(df_data):
     if df_data is None or df_data.empty:
         print("No data available for analysis.")
         return
@@ -98,7 +98,7 @@ def b3_avg_math_score_by_race_for_attendance_over_80(df_data):
             break
 
 
-def b4_avg_writing_score_for_health_analysis(df_data):
+def avg_writing_score_for_health_analysis(df_data):
     if df_data is None or df_data.empty:
         print("No data available for analysis.")
         return
@@ -124,7 +124,7 @@ def b4_avg_writing_score_for_health_analysis(df_data):
             break
 
 
-def b5_top_mothers_education_by_race_and_parental_involvement(df_data):
+def top_mothers_education_by_race_and_parental_involvement(df_data):
     
     if df_data is None or df_data.empty:
         print("No data available for analysis.")
@@ -174,13 +174,13 @@ def b5_top_mothers_education_by_race_and_parental_involvement(df_data):
 
 def handle_choice(choice, df_data):
     if choice == '1':
-        b2_avg_absences_by_parental_involvement(df_data)
+        avg_absences_by_parental_involvement(df_data)
     elif choice == '2':
-        b3_avg_math_score_by_race_for_attendance_over_80(df_data)
+        avg_math_score_by_race_for_attendance_over_80(df_data)
     elif choice == '3':
-        b4_avg_writing_score_for_health_analysis(df_data)
+        avg_writing_score_for_health_analysis(df_data)
     elif choice == '4':
-        b5_top_mothers_education_by_race_and_parental_involvement(df_data)
+        top_mothers_education_by_race_and_parental_involvement(df_data)
     elif choice == '5':
         print("Thank you!")
         return False

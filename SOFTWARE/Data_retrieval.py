@@ -1,11 +1,8 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
+# In[ ]:
 
-
-from data_loader import load_csv_data
-from get_file_path import get_file
 
 # Define a function to prompt the user to change input or return to the main menu.
 def change_or_main_menu():
@@ -29,7 +26,7 @@ def change_or_main_menu():
         else:
             print("Invalid choice. Please try again.")
 
-def task_a1(data, student_id):
+def get_info_by_id(data, student_id):
     if data is None:
         return
     
@@ -68,7 +65,7 @@ def get_user_choice():
     
     return race_options.get(choice, None)
 
-def task_a2(data, race):
+def get_info_by_race(data, race):
     if data is None:
         return
     
@@ -85,7 +82,7 @@ def task_a2(data, race):
             break
         race = get_user_choice()
 
-def task_a3(data, parental_involvement):
+def get_info_by_parental_involvement(data, parental_involvement):
     if data is None:
         return
     
@@ -111,14 +108,14 @@ def get_parental_level():
         else:
             print("Invalid input. Please enter 'high', 'medium', or 'low'.")
 
-def task_a4(data, Studytime):
+def get_info_by_studytime(data, Studytime):
     if data is None:
         return
     
     while True:
         found = False
         for row in data[1:]:
-            if row[12] == Studytime and int(row[12]) >= 1:
+            if row[12] == Studytime and int(row[12]) > 1:
                 print(f"Failures: {row[13]}\tHealth: {row[25]}\tSuspensions: {row[32]}\tTravel Time: {row[11]}")
                 found = True
         if not found:
@@ -126,48 +123,6 @@ def task_a4(data, Studytime):
         
         if not change_or_main_menu():
             break
-        Studytime = input("Enter the hours of study: ")
-
-def main():
-    
-    
-    if data is None:
-        return
-    
-    while True:
-        print("\nWhich of the following would you like to do? Make your selection from the options shown:")
-        print("1. Look up the data records using the provided Student ID number")
-        print("2. Retrieve data based on Race")
-        print("3. Retrieve data on Parental Involvement and Absences where the number of absences is less than 50")
-        print("4. Retrieve data based on study time")
-        print("5. Exit")
-
-        choice = input("Enter your choice: ")
+        Studytime = input("Enter the hours of study(1,2,3..Hours): ")
         
-        if choice == '1':
-            student_id = input("Enter the student ID: ")
-            task_a1(data, student_id)
-    
-        elif choice == '2':
-            race = get_user_choice()
-            task_a2(data, race)
-        elif choice == '3':
-            Parental_involvement = get_parental_level()
-            task_a3(data, Parental_involvement)
-        elif choice == '4':
-            Studytime = input("Enter the hours of study,(1,2,3..Hours): ")
-            task_a4(data, Studytime)
-        elif choice == '5':
-            print("Thank you")
-            break
-        else:
-            print("Invalid choice. Please choose a task again.")
-
-
-    
-
-# Check if the script is being run as the main program
-if __name__ == "__main__":
-    # Call the main function to start the program
-    main()
 
