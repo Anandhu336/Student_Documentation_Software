@@ -72,7 +72,7 @@ def Main():
                     get_info_by_parental_involvement(data, parental_involvement)
                 elif sub_choice == '4':
                     studytime = input("Enter the hours of study: ")
-                    get_info_by_studytime(data, Studytime)
+                    get_info_by_studytime(data, studytime)
                 elif sub_choice == '5':
                     print("Thank you")
                     break

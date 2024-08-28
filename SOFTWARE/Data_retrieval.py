@@ -128,26 +128,26 @@ def get_parental_level():
             #inform the user the input is invalid 
             print("Invalid input. Please enter 'high', 'medium', or 'low'.")
             
-#function to retrieve the data  by student study time  
-def get_info_by_studytime(data, Studytime):
+
+        
+
+# Function to retrieve the data by student study time  
+def get_info_by_studytime(data, studytime):
     if data is None:
         return
     
     while True:
         found = False
         # Iterate over each row in the data starting from the second row 
-        for row in data[1:]:
+        for row in data:
             # Check if the study time matches and is greater than 1 hour
-            if row[12] == Studytime and int(row[12]) > 1:
-                #print the relevant information of the student 
+            if row[12] == studytime and int(row[12]) > 1:
+                # Print the relevant information of the student 
                 print(f"Failures: {row[13]}\tHealth: {row[25]}\tSuspensions: {row[32]}\tTravel Time: {row[11]}")
                 found = True
         if not found:
-            print(f"Error: Studytime '{Studytime}' not found.")
+            print(f"Error: Studytime '{studytime}' not found.")
         
         if not change_or_main_menu():
             break
-        # ask the user to enter a new study time in hours
-        Studytime = input("Enter the hours of study(1,2,3..Hours): ")
-        
 

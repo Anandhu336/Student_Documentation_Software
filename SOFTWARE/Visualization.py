@@ -4,7 +4,9 @@
 # In[ ]:
 
 
-from collections import defaultdict
+#import necessary libraries
+
+
 
 
 # For creating visualizations
@@ -27,20 +29,23 @@ def students_proportion_by_race(df_data):
     
     # Set the size of the figure
     plt.figure(figsize=(10, 6))
-    # Create a pie chart with the race labels and their proportions
+    # Create a pie chart with the race labels 
     plt.pie(sizes, labels=labels, autopct='%1.1f%%')
-    # Provide the title of the chart
+    #  the title of the chart
     plt.title('Proportion of Students by Race')
-    # Ensure the pie chart is circular
-    plt.axis('equal')
+    
     # Display the pie chart
     plt.show()
 
 # Function to create a bar chart to compare average writing scores among students in each race group
 def avg_writing_scores_by_race(df_data):
+    # Initialize a defaultdict to collect writing scores by race
     race_scores = defaultdict(list)
+    # Iterate over each race and writing score from the DataFrame
     for race, writing_score in zip(df_data['Race'], df_data['Writing_score']):
+        #race name to lower case 
         race = race.strip().lower()
+        # Convert writing score to float
         writing_score = float(writing_score)
         race_scores[race].append(writing_score)
     
@@ -49,11 +54,16 @@ def avg_writing_scores_by_race(df_data):
     
     # Plotting the data
     plt.figure(figsize=(10, 6))
+    # Create a bar plot
     plt.bar(avg_scores.keys(), avg_scores.values(), color='skyblue')
+    # Label for the x-axis
     plt.xlabel('Race')
+    # Label for the y-axis
     plt.ylabel('Average Writing Score')
+    #title
     plt.title('Average Writing Scores by Race')
-    plt.xticks(rotation=45)
+    
+    # Display the plot
     plt.show()
    
 
@@ -77,8 +87,7 @@ def relationship_reading_writing_scores(df_data):
     # Give the label for the y-axis
     plt.ylabel('Writing Score')
 
-    # Enable the grid for the plot
-    plt.grid(True)
+    
 
     # Display the scatter plot
     plt.show()
@@ -91,6 +100,7 @@ def Health_visualization(df_data):
     for health, math_score in zip(df_data['Health'], df_data['Math_score']):
         health = health.strip().lower()  # Normalize health status string
         math_score = float(math_score)   # Ensure the math score is a float
+        # append the math score to the list  corresponding to the health
         avg_math_scores_health[health].append(math_score)
     
     # Calculate the average scores
@@ -98,11 +108,12 @@ def Health_visualization(df_data):
     
     # Plotting
     plt.figure(figsize=(10, 6))
+    #plot the bar chart 
     plt.bar(avg_scores.keys(), avg_scores.values(), color='red')
     plt.xlabel('Health')
     plt.ylabel('Average Math Score')
     plt.title('Average Math Scores by Health')
-    plt.xticks(rotation=45)
+   
     plt.show()
 
 
